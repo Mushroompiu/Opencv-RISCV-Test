@@ -24,11 +24,11 @@ img2 = cv2.imread(r'.\pic\atl_spotp_92.jpg')
 change = cv2.absdiff(img1, img2)
 ```
 
-##Save the result to the current folder named diff.jpg
+## Save the result to the current folder named diff.jpg
 ```
 cv2.imwrite(r'.\diff1.jpg', change)
 ```
-##Show
+## Show
 ```
 cv2.imshow('diff', change)
 ```
