@@ -33,3 +33,15 @@ cv2.imwrite(r'.\diff1.jpg', change)
 cv2.imshow('diff', change)
 ```
 
+# Timers in RISCv
+There are two basic interrupt controllers on riscv, aclint and plic, the former is the full name of Advanced Core Local Interruptor, is the interrupt controller within the core, mainly used to generate timer interrupts and software interrupts, the latter is the full name of Platform Level Interruptor Controller, mainly used to collect interrupts from peripherals. plic reports interrupts to the CPU through external interrupts.
+
+The timer-related registers and register fields are: mip/mie, mtime, and mtimecmp.
+In mie, there are bits that control timer interrupt enable: MTIE/STIE, and whether M mode and S mode timer interrupter are enabled. mip has bits that indicate whether there is a pending timer interrupt: MTIP/STIP.
+
+mtime is a read-write counter, the value of which is incremented at certain time intervals, the counter will rewind when it is full. mtimecmp register value is used to compare with mtime, when the value of mtime is greater than or equal to the value of mtimecmp, and MTIE is enabled, M mode timer interrupter is triggered.
+
+Software can update the value of mtimecmp in the timer interrupt handler function to maintain a fixed period of the clock interrupt, generally this interrupt is the Linux kernel clock interrupt. Software can write STIP to trigger an S mode timer interrupt
+
+[Generic RISC-V SoC platform](https://github.com/cnrv/riscv-notes/blob/master/architecture/platform.md#generic-risc-v-soc-platform)
+
